@@ -1,0 +1,672 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f7f7f7;
+    overflow: hidden; /* 스크롤 막기 */
+    height: 100vh; /* 세로 화면 크기 고정 */
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 140px; /* 높이 조정 */
+}
+
+.tabs a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px; /* 크기 조절 */
+    margin: 0 10px;
+}
+
+.tabs a:hover {
+    color: #007bff;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-input {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    position: relative; /* 그림자를 적용할 위치 지정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 수평 이동, 수직 이동, 흐림 반경, 색상 */
+    /* 그림자 스타일: 0px 수평 오프셋, 4px 수직 오프셋, 8px의 흐림 효과와 검은색의 투명도 10% */
+    z-index: 1; /* 다른 요소들 위에 위치하도록 z-index 설정 */
+    background-color: white; /* 배경색 흰색 설정 (필요에 따라 조정) */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+header h1 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.icons {
+    display: flex;
+    gap: 5px;
+    z-index: 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.rating-score {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* 이미지와 옵션 사이 간격 */
+    flex-grow: 1;
+    overflow: auto; /* 콘텐츠가 길어지면 스크롤 */
+    width: 100%;
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+/* 스크롤에 따른 이미지 가리기 스타일 */
+.selected-cake {
+    position: relative; /* 상대적 위치 설정 */
+    /* height: 300px; 이미지 컨테이너의 높이 설정 */
+    z-index: 0;
+}
+
+
+
+/* JavaScript로 스크롤 위치에 따라 transform 조정 */
+
+/* 드롭다운 스타일링 */
+.dropdown select {
+    width: 100%; /* 드롭다운의 너비 */
+    padding: 8px 16px; /* 텍스트 주변의 패딩 */
+    border: 1px solid #ccc; /* 경계선 스타일 */
+    border-radius: 4px; /* 경계선의 둥근 모서리 */
+    background-color: white; /* 배경색 */
+    appearance: none; /* 기본 브라우저 스타일 제거 */
+    -webkit-appearance: none; /* 크롬, 사파리에서 기본 스타일 제거 */
+    -moz-appearance: none; /* 파이어폭스에서 기본 스타일 제거 */
+    font-size: 16px; /* 글꼴 크기 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+}
+
+/* 드롭다운 화살표 커스텀 스타일 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px; /* 드롭다운 전체 컨테이너의 너비 */
+}
+
+.dropdown::after {
+    content: '\25BC'; /* 다운 화살표 유니코드 */
+    position: absolute;
+    top: 0;
+    right: 10px; /* 오른쪽 여백 */
+    padding: 8px 0;
+    pointer-events: none; /* 클릭 이벤트 무시 */
+    color: #888; /* 화살표 색상 */
+    font-size: 16px;
+}
+
+.ad-container {
+    width: 90%;
+    height: 50px;
+    border: 1px solid #000; /* 검은 윤곽선 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.options {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto; /* 옵션 영역에 스크롤 추가 */
+}
+
+.cake-selection,
+.cake-size-selection,
+.quantity-selection,
+.price-display {
+    background-color: rgba(0, 0, 0, 0.05); /* 얕은 회색 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 10px; /* 모서리가 둥근 직사각형 */
+}
+
+.cake-selection h2,
+.cake-size-selection h2,
+.quantity-selection h2,
+.price-display h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 10px; /* 좌측 여백 */
+}
+
+.cake-option {
+    width: 95%; /* 버튼 폭 50% */
+    background-color: rgba(255, 255, 255, 0.8); /* 흰색 투명도 */
+    border: 1px solid #000; /* 검은색 윤곽선 */
+    color: #000;
+    padding: 8px;
+    border-radius: 10px; /* 모서리가 둥근 직사각형 */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: auto;
+}
+
+.cake-option.sold-out {
+    background-color: rgba(255, 0, 0, 0.2); /* 품절된 케이크는 빨간색 투명도 */
+    cursor: not-allowed;
+}
+
+.cake-option.sold-out p {
+    color: #ff0000;
+}
+
+.cake-option p {
+    font-size: 14px; /* 폰트 크기 조절 */
+    margin: 0;
+}
+
+.selected-indicator {
+    display: none; /* 기본적으로 표시 안함 */
+    height: 8px;
+    width: 8px;
+    background-color: rgba(0, 0, 0, 0.5); /* 약간 투명한 검은색 점 */
+    border: 2px solid rgba(0, 0, 0, 0.5); /* 원형 고리 */
+    border-radius: 50%;
+    position: absolute;
+    right: 10px; /* 약간의 여백 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cake-option.selected .selected-indicator {
+    display: inline-block;
+}
+
+.quantity-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.quantity-options button {
+    padding: 5px 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.quantity-options input {
+    width: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px; /* 버튼들을 페이지 하단에서 위로 이동 */
+}
+
+.prev-button {
+    background-color: #ffd900;
+    color: purple;
+    border: none;
+    padding: 8px 16px;
+    padding-right: 0;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+footer .prev-button {
+    background-color: #ffd900;
+    color: purple;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.prev-button:hover {
+    background-color: #ffd900;
+}
+footer .prev-button:hover {
+    background-color: #ffd900;
+}
+
+footer .next-button {
+    background-color: #0056b3; /* '도안 선택' 버튼 색상 톤 다운 */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+footer .next-button:hover {
+    background-color: #004085;
+}
+
+.price-display p {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+/* Design Page Styles */
+
+.design-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    gap: 40px; /* 디자인 섹션 사이 간격 추가 */
+}
+
+.design-tools-container {
+    background-color: rgba(0, 0, 0, 0.05); /* 옅은 회색 배경 */
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1; /* 크기를 부모 요소에 맞추지 않음 */
+}
+
+.design-category {
+    margin-bottom: 20px; /* 소제목들 사이 간격 추가 */
+}
+
+.design-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.design-tools label {
+    margin-right: 10px;
+}
+
+.design-options,
+.design-decorations,
+.design-border,
+.design-background {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 옵션 사이의 간격 */
+}
+
+.design-option-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.design-option-row label {
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.design-option-row input,
+.design-option-row select {
+    flex: 2;
+}
+
+.design-action-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.design-action-row button {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.design-preview {
+    background-color: #fff; /* 흰색 배경 */
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+    flex: 0 0 50%; /* 고정 너비를 설정하여 오른쪽으로 배치, 크기를 부모 요소에 맞추지 않음 */
+}
+
+.design-preview #designCanvas {
+    width: 100%;
+    height: 400px;
+    background-color: #ffd900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #999;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.design-actions {
+    display: flex;
+    justify-content: flex-end; /* 버튼 우측 정렬 */
+    width: 100%;
+}
+
+.design-actions .small-button {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.image-upload {
+    border: 1px dashed #ccc;
+    background-color: #f0f0f0;
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px; /* 모서리 둥글게 처리 */
+    margin-bottom: 10px;
+    height: 200px;
+}
+
+/* 헤더 */
+.header-container {
+    background-color: #ffd900;
+    padding: 20px;
+}
+
+/* 스크롤 가능한 컨텐츠 영역 */
+.content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* 세로 방향 스크롤 활성화 */
+    flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+}
+
+.container {
+    margin: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh; /* 화면 전체 높이 */
+    overflow: hidden; /* 오버플로우 숨김 */
+    overflow-y: scroll; /* Y축 스크롤 활성화 */
+    position: relative;
+}
+
+/* 옵션 선택 부분 */
+.options {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-bottom: 50px; /* 아래쪽 패딩을 더 크게 설정 */
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+    background-color: white; /* 배경색 지정 */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px; /* 모서리 둥글게 처리 */
+    z-index: 0; /* z-index 조정 */
+}
+
+.icons,
+.rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 62px;
+    background-color: #ffd900; /* 밝은 노란색 배경 */
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    color: purple; /* 보라색 텍스트 */
+    text-decoration: none;
+    cursor: pointer; /* 포인터 커서 표시 */
+}
+
+.nav-item i {
+    margin-bottom: 4px;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fas {
+    font-size: 20px;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 50%; /* 조정 가능 */
+}
+
+.search-input {
+    width: 100%;
+    padding-right: 35px; /* 버튼의 너비만큼 오른쪽 패딩을 줘서 텍스트가 버튼에 가리지 않도록 함 */
+    box-sizing: border-box;
+    border: 1px solid #ccc; /* 경계선 스타일 조정 가능 */
+    height: 50px; /* 입력 필드의 높이 */
+    border-radius: 8px; /* 모서리 둥글기 */
+}
+
+.search-button {
+    position: absolute;
+    right: 5px; /* 입력 필드 내부 오른쪽에서의 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%); /* 버튼을 입력 필드 높이 중앙에 위치시키기 */
+    border: none;
+    background: none; /* 버튼 배경을 투명하게 설정 */
+    color: purple; /* 아이콘 색상 설정 */
+    cursor: pointer;
+    width: 30px; /* 버튼 너비 */
+    height: 30px; /* 버튼 높이 */
+    line-height: 30px; /* 아이콘 수직 정렬 */
+    text-align: center; /* 아이콘 수평 정렬 */
+}
+
+.search-icon {
+    font-size: 16px; /* 아이콘 크기 */
+}
+
+
+
+.bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    transition: height 0.3s ease-in-out;
+    height: 10%; /* Start at 10% of the screen height */
+    max-height: 80%; /* Maximum extension to 80% of the screen height */
+    overflow: hidden; /* Adjust as necessary */
+    touch-action: none; /* 드래그 동작을 위해 추가 */
+}
+
+
+
+   
+
+
+
+.handle {
+    width: 100%;
+    height: 30px; /* 핸들 높이 증가 */
+    background-color: #ccc;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+}
+
+
+
+
+.handle {
+    width: 100%;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    bottom: 62px; /* bottom navigation의 높이만큼 위로 올립니다 */
+    cursor: pointer;
+    z-index: 1000; /* 낮은 z-index 값으로 설정 */
+}
+
+
+
+.selected-cake img {
+    width: 100%; /* 너비를 컨테이너에 맞춤 */
+    position: absolute;
+    top: 0; /* 상단에 고정, 필요에 따라 조정 가능 */
+    left: 0;
+    height: auto; /* 이미지의 원래 비율을 유지하면서 너비에 맞춤 */
+    object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 조정 */
+    z-index: 500; /* 필요에 따라 z-index 조정 */
+}
+
+
+  
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* 슬라이더 컨테이너의 최대 너비를 설정하여 이미지 하나만 보이도록 조정 */
+    overflow: hidden; /* 넘치는 이미지 숨김 */
+}
+
+.image-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%; /* 전체 슬라이더 너비를 정확하게 지정 */
+}
+
+.slider-image {
+    top: 0; /* 상단에 고정, 필요에 따라 조정 가능 */
+    left: 0;
+    width: 100%; /* 각 이미지가 슬라이더 너비와 일치하도록 설정 */
+    display: block;
+    object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
+    
+}
+
+.slider-indicators {
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.indicator {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+.indicator.active {
+    background-color: #333;
+}

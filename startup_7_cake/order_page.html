@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Order Page</title>
+        <link rel="stylesheet" href="styles_dh.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&display=swap" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+        <style>
+            .content {
+                padding: 0 10px; /* Adjust padding to prevent overflow */
+            }
+            .option-container {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background: #f9f9f9;
+            }
+            .option-container label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .option-container input[disabled] {
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header-container">
+                <header>
+                    <button type="button" class="prev-button"><i class="fa-solid fa-arrow-left"></i></button>
+                    <a href="index.html" class="nav-item" style="padding: 0">
+                        <i class="fas fa-home" alt="Home"></i>
+                    </a>
+                    <h1>주문 제작 케이크</h1>
+                </header>
+                <div class="rating">
+                    <span class="rating-score">5.0</span>
+                    <i class="fa-solid fa-star" style="color: purple"></i>
+                    <i class="fa-solid fa-star" style="color: purple"></i>
+                    <i class="fa-solid fa-star" style="color: purple"></i>
+                    <i class="fa-solid fa-star" style="color: purple"></i>
+                    <i class="fa-solid fa-star" style="color: purple"></i>
+                </div>
+            </div>
+            <div class="content">
+                <div class="slider-container">
+                    <div class="image-slider">
+                        <img src="cake1.jpg" alt="Selected Cake" class="slider-image" />
+                        <img src="cake2.jpg" alt="Selected Cake" class="slider-image" />
+                        <img src="cake3.jpg" alt="Selected Cake" class="slider-image" />
+                    </div>
+                    <div class="slider-indicators">
+                        <span class="indicator active" data-index="0"></span>
+                        <span class="indicator" data-index="1"></span>
+                        <span class="indicator" data-index="2"></span>
+                    </div>
+                </div>
+                <div class="icons">
+                    <button class="icon"><i class="fa-solid fa-phone"></i> 전화</button>
+                    <button class="icon"id="locationButton"><i class="fa-solid fa-location-dot"></i> 위치</button>
+                    <button class="icon"><i class="fa-solid fa-store"></i> 매장정보</button>
+                </div>
+
+                <div class="bottom-sheet" id="bottomSheet">
+                    <div class="handle"></div>
+
+                    <div class="options">
+                        <section class="cake-selection">
+                            <h2>케이크 틀 선택</h2>
+                            <div class="dropdown">
+                                <select id="cakeSelector" onchange="selectCake(this)">
+                                    <option disabled selected>Choose one...</option>
+                                    <option value="cake1, cake1.jpg,30000">홀케이크</option>
+                                    <option value="cake2, cake2.jpg,32000">딸기 생크림 박스</option>
+                                    <option value="cake3, cake3.jpg,34000">고구마 반반 케이크</option>
+                                </select>
+                            </div>
+                        </section>
+                        <section class="cake-size-selection">
+                            <h2>케이크 사이즈 선택</h2>
+                            <div class="dropdown">
+                                <select id="sizeSelector" onchange="selectSize(this)">
+                                    <option disabled selected>Choose one...</option>
+                                    <option value="size1,0">1호(15cm)</option>
+                                    <option value="size2,5000">2호(18cm)</option>
+                                    <option value="size3,10000">3호(21cm) (품절)</option>
+                                    <option value="size4,15000">4호(24cm) (품절)</option>
+                                </select>
+                            </div>
+                        </section>
+                        <section class="option-container">
+                            <label>
+                                <span>노쇼 방지 보증금 추가 (10,000원)</span>
+                                <input type="checkbox" id="noShowDeposit" checked disabled />
+                            </label>
+                        </section>
+                        <section class="option-container">
+                            <label>
+                                <span>낮시간 무인픽업대 추가 (3,000원)</span>
+                                <input
+                                    type="checkbox"
+                                    id="daytimePickup"
+                                    onchange="toggleOption('daytimePickup', 3000)"
+                                />
+                            </label>
+                        </section>
+                        <section class="quantity-selection">
+                            <h2>수량 선택</h2>
+                            <div class="quantity-options">
+                                <button onclick="decreaseQuantity()">-</button>
+                                <input type="text" id="quantity" value="1" readonly />
+                                <button onclick="increaseQuantity()">+</button>
+                            </div>
+                        </section>
+                        <section class="price-display">
+                            <h2>주문 금액</h2>
+                            <p id="totalPrice">30,000원</p>
+                        </section>
+                        <!-- <button type="button" class="next-button">
+                        <div class="image-upload">
+                            <p>도안 선택</p>
+                            <button id="openModal">모달 열기</button>
+                        </div></button> -->
+                        <div class="image-upload">
+                            <!-- "도안 선택" 버튼에 모달을 열기 위한 기능 추가 -->
+                            <button type="button" id="openModal">도안 선택</button>
+                        </div>
+
+                        <div class="sheet-content" id="sheetContent">
+                            <!-- 기본적으로 보여줄 내용 -->
+                            <p>케이크 옵션을 선택하세요.</p>
+                        </div>
+                    </div>
+                    <footer>
+                        <div class="bottom-nav">
+                            <a href="#" class="nav-item">
+                                <i class="fa-regular fa-bookmark"></i>
+
+                                <span>검색</span>
+                            </a>
+                            <a href="#" class="nav-item">
+                                <i class="fa-solid fa-share-nodes"></i>
+                                <span>알림</span>
+                            </a>
+                            <a href="#" class="nav-item">
+                                <i class="fas fa-user"></i>
+                                <span>계정</span>
+                            </a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <script>
+            let additionalCosts = {
+                noShowDeposit: 10000, // Always included
+                daytimePickup: 0,
+            };
+
+            function selectCakeOption(select) {
+                const [image, id, price] = select.value.split('|');
+                selectCake(image, id, parseInt(price));
+            }
+
+            function selectSizeOption(select) {
+                const [size, price] = select.value.split('|');
+                selectSize(size, parseInt(price));
+            }
+
+            function toggleOption(option, amount) {
+                additionalCosts[option] = document.getElementById(option).checked ? amount : 0;
+                updateTotalPrice();
+            }
+
+            function updateTotalPrice() {
+                let basePrice = parseInt(localStorage.getItem('basePrice')) || 30000;
+                let totalPrice = basePrice + additionalCosts.noShowDeposit + additionalCosts.daytimePickup;
+                document.getElementById('totalPrice').innerText = totalPrice.toLocaleString() + '원';
+            }
+
+            // Ensure the total price is calculated correctly on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                updateTotalPrice();
+            });
+        </script>
+        <script src="scripts.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const slider = document.querySelector('.image-slider');
+                const sliderImages = document.querySelectorAll('.slider-image');
+                const indicators = document.querySelectorAll('.indicator');
+                let currentIndex = 0;
+
+                function setActiveIndicator(index) {
+                    indicators.forEach((indicator, idx) => {
+                        indicator.classList.toggle('active', idx === index);
+                    });
+                }
+
+                function slideToImage(index) {
+                    const imageWidth = slider.clientWidth;
+                    slider.style.transform = `translateX(-${index * imageWidth}px)`;
+                    setActiveIndicator(index);
+                }
+
+                // Indicator click to slide to specific image
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentIndex = index;
+                        slideToImage(currentIndex);
+                    });
+                });
+
+                // Swipe functionality
+                let startX,
+                    isDragging = false;
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    e.preventDefault(); // Prevent dragging images or text selection
+                });
+
+                slider.addEventListener('mousemove', (e) => {
+                    if (isDragging) {
+                        const dx = e.clientX - startX;
+                        if (dx > 50) {
+                            // Swipe right
+                            if (currentIndex > 0) {
+                                currentIndex--;
+                                slideToImage(currentIndex);
+                            }
+                            isDragging = false; // Reset after handling swipe
+                        } else if (dx < -50) {
+                            // Swipe left
+                            if (currentIndex < sliderImages.length - 1) {
+                                currentIndex++;
+                                slideToImage(currentIndex);
+                            }
+                            isDragging = false; // Reset after handling swipe
+                        }
+                    }
+                });
+
+                slider.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                slider.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                });
+
+                slider.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+
+                slider.addEventListener('touchmove', (e) => {
+                    if (e.touches.length === 1) {
+                        // Single touch gestures only
+                        const dx = e.touches[0].clientX - startX;
+                        if (dx > 50) {
+                            if (currentIndex > 0) {
+                                currentIndex--;
+                                slideToImage(currentIndex);
+                            }
+                        } else if (dx < -50) {
+                            if (currentIndex < sliderImages.length - 1) {
+                                currentIndex++;
+                                slideToImage(currentIndex);
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var openModalBtn = document.getElementById('openModal');
+
+                openModalBtn.addEventListener('click', function () {
+                    fetch('modal.html')
+                        .then((response) => response.text())
+                        .then((html) => {
+                            document.body.insertAdjacentHTML('beforeend', html);
+                            var modal = document.getElementById('myModal');
+                            var closeModalBtn = document.getElementById('closeModal');
+                            modal.style.display = 'block';
+
+                            closeModalBtn.addEventListener('click', function () {
+                                modal.style.display = 'none';
+                            });
+
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
+                                    modal.style.display = 'none';
+                                }
+                            };
+
+                            // Initialize tab functionality after modal has loaded
+                            initTabFunctionality();
+                        })
+                        .catch((error) => console.error('Error loading the modal:', error));
+                });
+            });
+
+            function initTabFunctionality() {
+                var promptTab = document.getElementById('promptCreateTab');
+                var promptInputContainer = document.getElementById('promptInputContainer');
+                var templateCreateTab = document.getElementById('templateCreateTab');
+                var designTools = document.getElementById('designToolsContainer');
+
+                if (promptTab) {
+                    promptTab.addEventListener('click', function () {
+                        promptInputContainer.style.display =
+                            promptInputContainer.style.display === 'none' ? 'block' : 'none';
+                    });
+                }
+
+                if (templateCreateTab) {
+                    templateCreateTab.addEventListener('click', function () {
+                        designTools.style.display = designTools.style.display === 'none' ? 'block' : 'none';
+                    });
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                var openModalBtn = document.getElementById('openModal');
+
+                openModalBtn.addEventListener('click', function () {
+                    fetch('modal.html')
+                        .then((response) => response.text())
+                        .then((html) => {
+                            document.body.insertAdjacentHTML('beforeend', html);
+                            var modal = document.getElementById('myModal');
+                            var closeModalBtn = document.getElementById('closeModal');
+
+                            modal.style.display = 'block';
+
+                            closeModalBtn.addEventListener('click', function () {
+                                modal.style.display = 'none';
+                            });
+
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
+                                    modal.style.display = 'none';
+                                }
+                            };
+                        })
+                        .catch((error) => console.error('Error loading the modal:', error));
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const bottomSheet = document.getElementById('bottomSheet');
+                const handle = document.querySelector('.handle');
+
+                if (!handle || !bottomSheet) {
+                    console.error('Handle or bottomSheet element not found.');
+                    return;
+                }
+
+                console.log('Handle and bottomSheet are ready');
+
+                handle.addEventListener('mousedown', startDrag, false);
+                handle.addEventListener('touchstart', startDrag, false);
+
+                function startDrag(e) {
+                    console.log('Drag started');
+
+                    let startY = e.touches ? e.touches[0].clientY : e.clientY;
+                    let initialHeight = bottomSheet.clientHeight;
+
+                    function onMove(e) {
+                        let currentY = e.touches ? e.touches[0].clientY : e.clientY;
+                        let diffY = startY - currentY;
+                        let newHeight = Math.max(
+                            window.innerHeight * 0.1,
+                            Math.min(initialHeight + diffY, window.innerHeight * 0.8)
+                        );
+                        bottomSheet.style.height = `${newHeight}px`;
+                        console.log('Dragging... New height: ' + newHeight);
+                    }
+
+                    function onEnd() {
+                        console.log('Drag ended');
+                        window.removeEventListener('mousemove', onMove);
+                        window.removeEventListener('mouseup', onEnd);
+                        window.removeEventListener('touchmove', onMove);
+                        window.removeEventListener('touchend', onEnd);
+                    }
+
+                    window.addEventListener('mousemove', onMove, false);
+                    window.addEventListener('mouseup', onEnd, false);
+                    window.addEventListener('touchmove', onMove, false);
+                    window.addEventListener('touchend', onEnd, false);
+                }
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // 위치 버튼 이벤트 리스너 추가
+                document.getElementById('locationButton').addEventListener('click', function () {
+                    updateSheetContent();
+                });
+            });
+
+            function updateSheetContent() {
+                // 내용 변경
+                var sheetContent = document.getElementById('sheetContent');
+                sheetContent.innerHTML = `
+                    <h2>매장 위치</h2>
+                    <p>서울특별시 강남구 테헤란로 123번지</p>
+                    <p>운영 시간: 매일 09:00 - 21:00</p>
+                `;
+            }
+        </script>
+    </body>
+</html>

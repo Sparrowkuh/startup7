@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>모바일 어플리케이션</title>
+        <link rel="stylesheet" href="styles2.css" />
+    </head>
+    <body>
+        <div class="container_modal">
+            <button class="btn_modal" id="openModal">모달 열기</button>
+            <!-- 새로운 버튼 추가 -->
+        </div>
+
+        <!-- 모달 -->
+        <div id="myModal" class="modal_modal">
+            <div class="modal-content_modal">
+                <div class="container_modal" style="background: purple; width: 100%; color: white">
+                    도안 만들기
+                    <span class="close_modal" id="closeModal">&times;</span>
+                </div>
+
+                <div class="container_modal">
+                    <section class="design-section_modal">
+                        <h2>1. AI 디자인 생성</h2>
+                        <div class="tab-container_modal">
+                            <a href="#" class="tab_modal">사진업로드</a>
+                            <!-- "탬플릿 생성" 탭 링크에 대한 수정 -->
+                            <a href="#" class="tab_modal" id="templateCreateTab">탬플릿 생성</a>
+                            <a href="#" class="tab_modal" id="promptCreateTab">프롬포트 생성</a>
+                            <a href="#" class="tab_modal">도시락케이크</a>
+                            <a href="#" class="tab_modal">배달가능</a>
+                        </div>
+                        <div class="image-upload_modal">
+                            <p>(여기에 상업 이미지 드롭)</p>
+                        </div>
+                        <input type="file" accept="image/*" class="tab" />
+                        <div class="design-tools-container" id="designToolsContainer" style="display: none">
+                            <div class="design-category">
+                                <h2>레터링</h2>
+                                <div class="design-input">
+                                    <label for="designText">레터링 문구 입력:</label>
+                                    <input type="text" id="designText" placeholder="레터링 문구 입력" />
+                                </div>
+                                <div class="design-options">
+                                    <div class="design-option-row">
+                                        <label for="fontSelect">폰트:</label>
+                                        <select id="fontSelect">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Verdana">Verdana</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                        </select>
+                                    </div>
+                                    <div class="design-option-row">
+                                        <label for="fontSize">폰트 크기:</label>
+                                        <input type="number" id="fontSize" min="10" max="100" value="16" />
+                                    </div>
+                                    <div class="design-option-row">
+                                        <label for="fontColor">글씨 색깔:</label>
+                                        <input type="color" id="fontColor" value="#000000" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design-category">
+                                <h2>장식 추가</h2>
+                                <div class="design-decorations">
+                                    <div class="design-option-row">
+                                        <label for="decorationSelect">장식 선택:</label>
+                                        <select id="decorationSelect">
+                                            <option value="cherry">체리</option>
+                                            <option value="sprinkles">스프링클</option>
+                                            <option value="chocolate">초콜릿</option>
+                                        </select>
+                                    </div>
+                                    <div class="design-option-row">
+                                        <label for="decorationColor">장식 색깔:</label>
+                                        <input type="color" id="decorationColor" value="#FF0000" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design-category">
+                                <h2>케이크 테두리</h2>
+                                <div class="design-border">
+                                    <div class="design-option-row">
+                                        <label for="borderStyle">테두리 스타일:</label>
+                                        <select id="borderStyle">
+                                            <option value="solid">실선</option>
+                                            <option value="dotted">점선</option>
+                                            <option value="double">이중선</option>
+                                        </select>
+                                    </div>
+                                    <div class="design-option-row">
+                                        <label for="borderColor">테두리 색깔:</label>
+                                        <input type="color" id="borderColor" value="#000000" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design-category">
+                                <h2>배경</h2>
+                                <div class="design-background">
+                                    <div class="design-option-row">
+                                        <label for="backgroundColor">배경 색깔:</label>
+                                        <input type="color" id="backgroundColor" value="#FFFFFF" />
+                                    </div>
+                                    <div class="design-option-row">
+                                        <label for="backgroundImage">배경 이미지:</label>
+                                        <input type="file" id="backgroundImage" accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design-action-row">
+                                <button onclick="generateDesign()">디자인 생성</button>
+                            </div>
+                        </div>
+                        <!-- "탬플릿 생성" 탭 마지막 -->
+
+                        <div id="promptInputContainer" style="display: none">
+                            <div class="buttons-container">
+                                <input type="text" class="input-field" placeholder="테스트 및 문의" />
+                                <button class="btn" style="width: 20%">생성</button>
+                            </div>
+                        </div>
+
+                        <button class="btn_modal">[건너뛰기] (다운로드 2번으로 스크롤)</button>
+                    </section>
+
+                    <section class="approval-section_modal">
+                        <h2>2. 도안 확정</h2>
+                        <div class="actions">
+                            <div class="image-upload-circle_modal">
+                                <p>(디자인 진행상황)</p>
+                            </div>
+                            <div class="buttons-container_modal">
+                                <button class="btn_modal">AI 이미지 가져오기</button>
+                                <button class="btn_modal">
+                                    <input type="file" id="backgroundImage" accept="image/*" />
+                                    이미지 추가
+                                </button>
+                            </div>
+                        </div>
+                        <div class="test_modal">
+                            <h3>1. 레터링 문구</h3>
+                            <input type="text" class="input-field_modal" placeholder="테스트 및 문의" />
+                            <h3>2. 기타</h3>
+                            <input type="text" class="input-field_modal" placeholder="테스트 및 문의" />
+                        </div>
+                        <footer class="footer">
+                            <button class="btn_modal full-width_modal">[완료] 누르면 주문창</button>
+                        </footer>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.querySelectorAll('.tab_modal').forEach((tab) => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.tab_modal').forEach((node) => {
+                        node.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        </script>
+        <script>
+            // Toggle the design tools on tab click
+            document.addEventListener('DOMContentLoaded', function () {
+                var promptTab = document.getElementById('promptCreateTab');
+                var promptInputContainer = document.getElementById('promptInputContainer');
+
+                promptTab.addEventListener('click', function () {
+                    // 표시 상태를 토글합니다.
+                    promptInputContainer.style.display =
+                        promptInputContainer.style.display === 'none' ? 'block' : 'none';
+                });
+                document.getElementById('templateCreateTab').addEventListener('click', function () {
+                    var designTools = document.getElementById('designToolsContainer');
+                    designTools.style.display = designTools.style.display === 'none' ? 'block' : 'none';
+                });
+
+            });
+
+            // 모달 스크립트
+            var modal = document.getElementById('myModal');
+    var openModalBtn = document.getElementById('openModal');
+    var closeModalBtn = document.getElementById('closeModal'); // 'closeModal' 아이디를 가진 버튼을 찾습니다.
+
+    if (openModalBtn && closeModalBtn) { // 버튼들이 실제로 존재하는지 확인
+        openModalBtn.onclick = function() {
+            modal.style.display = 'block';
+        };
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
+    } else {
+        console.error("Modal or button elements are not found"); // 요소가 없을 경우 콘솔에 오류 메시지 출력
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+        </script>
+        <script src="design_scripts.js"></script>
+    </body>
+</html>

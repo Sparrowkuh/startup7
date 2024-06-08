@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Design Page</title>
+        <link rel="stylesheet" href="styles_dh.css" />
+    </head>
+    <body>
+        <div class="container">
+            <nav class="tabs">
+                <a href="#home">홈페이지</a>
+                <a href="#category">카테고리</a>
+                <a href="#review">인터뷰/상품평</a>
+                <a href="#products">상품</a>
+                <div class="search-container">
+                    <input type="text" placeholder="검색어 입력" class="search-input" />
+                    <button type="button" class="search-button">검색</button>
+                </div>
+            </nav>
+            <div class="header-container">
+                <header>
+                    <h1>나만의 레터링 케이크 도안</h1>
+                    <div class="icons">
+                        <img src="bookmark_icon.png" alt="Bookmark" class="icon" />
+                        <img src="share_icon.png" alt="Share" class="icon" />
+                    </div>
+                </header>
+            </div>
+            <div class="content">
+                <section class="design-section">
+                    <div class="design-tools-container">
+                        <div class="design-category">
+                            <h2>레터링</h2>
+                            <div class="design-input">
+                                <label for="designText">레터링 문구 입력:</label>
+                                <input type="text" id="designText" placeholder="레터링 문구 입력" />
+                            </div>
+                            <div class="design-options">
+                                <div class="design-option-row">
+                                    <label for="fontSelect">폰트:</label>
+                                    <select id="fontSelect">
+                                        <option value="Arial">Arial</option>
+                                        <option value="Verdana">Verdana</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                    </select>
+                                </div>
+                                <div class="design-option-row">
+                                    <label for="fontSize">폰트 크기:</label>
+                                    <input type="number" id="fontSize" min="10" max="100" value="16" />
+                                </div>
+                                <div class="design-option-row">
+                                    <label for="fontColor">글씨 색깔:</label>
+                                    <input type="color" id="fontColor" value="#000000" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="design-category">
+                            <h2>장식 추가</h2>
+                            <div class="design-decorations">
+                                <div class="design-option-row">
+                                    <label for="decorationSelect">장식 선택:</label>
+                                    <select id="decorationSelect">
+                                        <option value="cherry">체리</option>
+                                        <option value="sprinkles">스프링클</option>
+                                        <option value="chocolate">초콜릿</option>
+                                    </select>
+                                </div>
+                                <div class="design-option-row">
+                                    <label for="decorationColor">장식 색깔:</label>
+                                    <input type="color" id="decorationColor" value="#FF0000" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="design-category">
+                            <h2>케이크 테두리</h2>
+                            <div class="design-border">
+                                <div class="design-option-row">
+                                    <label for="borderStyle">테두리 스타일:</label>
+                                    <select id="borderStyle">
+                                        <option value="solid">실선</option>
+                                        <option value="dotted">점선</option>
+                                        <option value="double">이중선</option>
+                                    </select>
+                                </div>
+                                <div class="design-option-row">
+                                    <label for="borderColor">테두리 색깔:</label>
+                                    <input type="color" id="borderColor" value="#000000" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="design-category">
+                            <h2>배경</h2>
+                            <div class="design-background">
+                                <div class="design-option-row">
+                                    <label for="backgroundColor">배경 색깔:</label>
+                                    <input type="color" id="backgroundColor" value="#FFFFFF" />
+                                </div>
+                                <div class="design-option-row">
+                                    <label for="backgroundImage">배경 이미지:</label>
+                                    <input type="file" id="backgroundImage" accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="design-action-row">
+                            <button onclick="generateDesign()">디자인 생성</button>
+                        </div>
+                    </div>
+                    <div class="design-preview">
+                        <h3>도안 미리보기</h3>
+                        <div id="designCanvas">
+                            <!-- AI가 생성한 이미지가 여기에 표시됨 -->
+                        </div>
+                        <div class="design-actions">
+                            <button onclick="saveDesign()" class="small-button">임시 저장</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer>
+                <button type="button" class="prev-button">이전</button>
+                <button type="button" class="next-button">결제하기</button>
+            </footer>
+        </div>
+        <script src="design_scripts.js"></script>
+    </body>
+</html>
